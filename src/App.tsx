@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import BoardList from './components/BoardList';
 import BoardEditor from './components/BoardEditor';
+import InstallPrompt from './components/InstallPrompt';
+import UpdatePrompt from './components/UpdatePrompt';
 
 const queryClient = new QueryClient();
 
@@ -12,6 +14,7 @@ export default function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <UpdatePrompt />
       <div className="min-h-screen bg-gray-50 flex flex-col">
         {view.screen === 'list' && (
           <BoardList onOpenBoard={(id) => setView({ screen: 'editor', boardId: id })} />
@@ -22,6 +25,7 @@ export default function App() {
             onBack={() => setView({ screen: 'list' })}
           />
         )}
+        <InstallPrompt />
         <footer className="mt-auto py-2 px-4 border-t border-gray-200 flex items-center justify-center gap-2 flex-wrap text-xs text-gray-400">
           <img src="/arasaac_logo.png" alt="ARASAAC" className="h-6 w-auto" />
           <span>

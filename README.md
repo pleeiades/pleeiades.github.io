@@ -2,6 +2,19 @@
 
 A browser-based tool for creating Assisted Language Device (ALD) boards. Search pictograms from ARASAAC, upload your own images, and download print-ready PDFs — all without an account or internet connection after first load.
 
+## Offline support
+
+The app is a Progressive Web App (PWA). After the first page load, it works fully offline:
+
+- The app shell (HTML, CSS, JS) is precached by a service worker on first visit.
+- ARASAAC pictogram images are cached for 90 days using a CacheFirst strategy — once an image has been viewed, it stays available offline.
+- ARASAAC search results are cached for 7 days using StaleWhileRevalidate — repeat searches return instantly and refresh in the background when online.
+- All boards and their images are stored in IndexedDB on the device, so nothing is lost when offline.
+
+**Installing on a device:** On Android and desktop Chrome/Edge, you'll see an "Add to home screen" / "Install" prompt. On iOS Safari, tap the Share button → "Add to Home Screen". Once installed, the app opens as a standalone window without browser chrome.
+
+**Updates:** When a new version is deployed, the service worker updates automatically in the background. A small banner will appear asking you to reload to apply the update.
+
 ## Local development
 
 ```bash
