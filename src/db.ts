@@ -1,13 +1,23 @@
 import Dexie, { type Table } from 'dexie';
 import type { Board } from './types';
 
+interface Preference {
+  key: string;
+  value: string;
+}
+
 class AldDatabase extends Dexie {
   boards!: Table<Board>;
+  preferences!: Table<Preference>;
 
   constructor() {
     super('ald-buddy');
     this.version(1).stores({
       boards: 'id, name, updatedAt',
+    });
+    this.version(2).stores({
+      boards: 'id, name, updatedAt',
+      preferences: 'key',
     });
   }
 }

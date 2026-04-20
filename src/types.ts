@@ -22,4 +22,5 @@ export type BoardSize =
 export interface ArasaacResult {
   _id: number;
   keywords: Array<{ keyword: string; type: number; meaning: string }>;
+  categories: string[];
 }
