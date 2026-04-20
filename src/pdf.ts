@@ -8,13 +8,35 @@ const A4_H_PT_PORT = 841.89;
 
 const MARGIN_MM = 10;
 const HEADER_MM = 14;
-const FOOTER_MM = 8;
+const FOOTER_MM = 12;
 const CELL_PAD_MM = 3;
 const LABEL_H_MM = 8;
 const BORDER_MM = 0.4;
 
 function mmToPt(mm: number) {
   return mm * 2.8346;
+}
+
+async function loadLogoForPdf(): Promise<{ dataUrl: string; aspectRatio: number } | null> {
+  try {
+    const resp = await fetch('/arasaac_logo.png');
+    if (!resp.ok) return null;
+    const blob = await resp.blob();
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const dataUrl = reader.result as string;
+        const img = new Image();
+        img.onload = () => resolve({ dataUrl, aspectRatio: img.naturalWidth / img.naturalHeight });
+        img.onerror = () => resolve(null);
+        img.src = dataUrl;
+      };
+      reader.onerror = () => resolve(null);
+      reader.readAsDataURL(blob);
+    });
+  } catch {
+    return null;
+  }
 }
 
 function chooseOrientation(rows: number, cols: number): 'landscape' | 'portrait' {
@@ -26,7 +48,10 @@ export async function exportBoardToPdf(board: Board): Promise<void> {
   const pageW = orientation === 'landscape' ? A4_W_MM : A4_H_MM;
   const pageH = orientation === 'landscape' ? A4_H_MM : A4_W_MM;
 
-  const doc = new jsPDF({ orientation, unit: 'mm', format: 'a4' });
+  const [doc, logo] = await Promise.all([
+    Promise.resolve(new jsPDF({ orientation, unit: 'mm', format: 'a4' })),
+    loadLogoForPdf(),
+  ]);
 
   const gridW = pageW - MARGIN_MM * 2;
   const gridH = pageH - MARGIN_MM * 2 - HEADER_MM - FOOTER_MM;
@@ -91,13 +116,21 @@ export async function exportBoardToPdf(board: Board): Promise<void> {
   }
 
   // Footer attribution
+  const footerY = pageH - MARGIN_MM - FOOTER_MM + 1;
+  const LOGO_H_MM = 5;
+  if (logo) {
+    const logoW = LOGO_H_MM * logo.aspectRatio;
+    const logoX = (pageW - logoW) / 2;
+    const format = detectFormat(logo.dataUrl);
+    doc.addImage(logo.dataUrl, format, logoX, footerY, logoW, LOGO_H_MM);
+  }
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(7);
   doc.setTextColor(120);
   doc.text(
-    'Pictograms from ARASAAC (arasaac.org) — © Sergio Palao, Government of Aragón (CC BY-NC-SA 4.0)',
+    'Pictograms: ARASAAC (arasaac.org) — Sergio Palao, Gobierno de Aragón, CC BY-NC-SA',
     pageW / 2,
-    pageH - MARGIN_MM + 3,
+    footerY + LOGO_H_MM + 3.5,
     { align: 'center' }
   );
 

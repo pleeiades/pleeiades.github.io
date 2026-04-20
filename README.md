@@ -35,3 +35,27 @@ Cloudflare Pages will rebuild automatically on every push to the main branch.
 ## Pictogram attribution
 
 Pictograms provided by [ARASAAC](https://arasaac.org) — © Sergio Palao, Government of Aragón, Spain. Licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+## Licensing and attribution
+
+This app is intended for **non-commercial educational use**.
+
+### App code
+
+The application code is MIT licensed (see `LICENSE`).
+
+### Pictograms (ARASAAC)
+
+Pictograms displayed and exported by this app come from [ARASAAC](https://arasaac.org), created by Sergio Palao for the Government of Aragón (Gobierno de Aragón), and are licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+The app handles attribution automatically:
+- A credit line appears in the app footer on every screen.
+- Every exported PDF includes the attribution in its footer.
+
+**If you fork or redistribute this app**, you must not add commercial features (ads, paywalls, paid subscription tiers) that would place ARASAAC pictograms in a commercial context. The CC BY-NC-SA licence prohibits commercial use.
+
+**If you build a derivative work that includes the pictograms**, that work must also be licensed under CC BY-NC-SA 4.0 and must retain full attribution to Sergio Palao and the Government of Aragón.
+
+### User-uploaded images
+
+Images that users upload themselves are entirely their own work. The CC BY-NC-SA restrictions above apply only to pictograms sourced from ARASAAC, not to user-supplied content.

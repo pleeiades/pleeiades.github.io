@@ -22,17 +22,28 @@ export default function App() {
             onBack={() => setView({ screen: 'list' })}
           />
         )}
-        <footer className="mt-auto py-3 px-4 text-center text-xs text-gray-400 border-t border-gray-200">
-          Pictograms from{' '}
-          <a
-            href="https://arasaac.org"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline"
-          >
-            ARASAAC
-          </a>
-          {' '}— © Sergio Palao, Government of Aragón (CC BY-NC-SA 4.0)
+        <footer className="mt-auto py-2 px-4 border-t border-gray-200 flex items-center justify-center gap-2 flex-wrap text-xs text-gray-400">
+          <img src="/arasaac_logo.png" alt="ARASAAC" className="h-6 w-auto" />
+          <span>
+            Pictograms by Sergio Palao /{' '}
+            <a
+              href="https://arasaac.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-gray-600"
+            >
+              ARASAAC (arasaac.org)
+            </a>
+            {' '}— Gobierno de Aragón, licensed{' '}
+            <a
+              href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-gray-600"
+            >
+              CC BY-NC-SA
+            </a>
+          </span>
         </footer>
       </div>
     </QueryClientProvider>
