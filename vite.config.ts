@@ -71,4 +71,20 @@ export default defineConfig({
     }),
   ],
   base: '/',
+  server: {
+    proxy: {
+      '/api/pictogram-proxy': {
+        target: 'https://static.arasaac.org',
+        changeOrigin: true,
+        rewrite: (path) => {
+          const qs = path.split('?')[1] ?? '';
+          const url = new URLSearchParams(qs).get('url') ?? '';
+          if (url.startsWith('https://static.arasaac.org/')) {
+            return new URL(url).pathname;
+          }
+          return path;
+        },
+      },
+    },
+  },
 })
