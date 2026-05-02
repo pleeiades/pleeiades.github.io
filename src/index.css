@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "@fontsource/edu-qld-beginner";
 
 * {
   box-sizing: border-box;
